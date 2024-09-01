@@ -12,7 +12,7 @@ struct node *head = NULL;
 
 void insert_at_beg()
 {
-    struct node *ptr = (struct node *)malloc(sizeof(struct node));
+    struct node *ptr = (struct node *)malloc(sizeof(struct node));//ptr==new node
     int item;
     printf("Enter the data of new Node: ");
     scanf("%d", &item);
@@ -28,6 +28,7 @@ void insert_at_beg()
         ptr->link = head;
         head = ptr;
     }
+    free(ptr);
 }
 
 void insert_at_end()
@@ -39,7 +40,8 @@ void insert_at_end()
     scanf("%d", &item);
     ptr->data = item;
     ptr->link = NULL;
-    if (head == NULL)
+    
+	if (head == NULL)
     {
         head = ptr;
     }
@@ -56,11 +58,51 @@ void insert_at_end()
 		}
 		ptr1->link=ptr;
 	}
+	free(ptr);
+	free(ptr1);
 }
 
 void insert_at_any()
 {
-	
+	struct node *ptr = (struct node *)malloc(sizeof(struct node));//new node
+	struct node *ptr1 = (struct node *)malloc(sizeof(struct node));//pointer for traverse
+    int item,pos;
+    printf("Enter the data of new Node: ");
+    scanf("%d", &item);
+    ptr->data = item;
+    ptr->link = NULL;
+    printf("Enter the position of new Node: ");
+    scanf("%d", &pos);
+    if(ptr==NULL)
+    {
+    	printf("Not possible.");
+    	break;
+	}
+	if(pos==1)
+	{
+		insert_at_beg();
+	}
+	else
+	{
+		int count=1;
+		*ptr1 = head;
+		while (ptr1 != NULL && count < pos-1)
+    {
+        ptr1 = ptr1->link;
+        count = count +1;
+    }
+    
+    if (ptr->link == && count != pos-1)
+    {
+    	printf("position not exist");
+    	break;
+	}
+	ptr->link = ptr1->link;
+	ptr1->link = ptr;
+	printf("%d",ptr->data);
+	free(ptr);
+	free(ptr1);
+	}
 }
 
 void display()
@@ -95,13 +137,13 @@ int main()
         case 3:
             insert_at_any();
             break;  
-		    case 4:
+		case 4:
             //delete_at_beg();
             break; 
-		    case 5:
+		case 5:
             //delete_at_end();
             break;
-		    case 6:
+		case 6:
             //delete_at_any();
             break; 
         case 7:
