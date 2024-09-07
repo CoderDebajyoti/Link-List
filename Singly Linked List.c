@@ -142,6 +142,50 @@ void delete_from_end()
     }
 }
 
+void delete_from_any()
+{
+    if (head == NULL)
+    {
+        printf("List does not exist.\n");
+        return;
+    }
+    
+    // Take position
+    int pos;
+    printf("Enter the position: ");
+    scanf("%d", &pos);
+
+    if (pos == 1)
+    {
+        delete_from_beg(); // Use the delete_from_beg function for the first position
+        return;
+    }
+
+    struct node *ptr1 = head; // Pointer for traversal
+    struct node *ptr = NULL;  // Pointer to the node to be deleted
+    int count = 1;
+
+    // Traverse to the node just before the position
+    while (ptr1 != NULL && count < pos - 1)
+    {
+        ptr1 = ptr1->link;
+        count++;
+    }
+
+    // Check if the position is valid
+    if (ptr1 == NULL || ptr1->link == NULL)
+    {
+        printf("Position does not exist.\n");
+    }
+    else
+    {
+        ptr = ptr1->link; // Node to be deleted
+        ptr1->link = ptr->link; // Bypass the node
+        printf("Deleted Node data: %d\n", ptr->data);
+        free(ptr); // Free the deleted node
+    }
+}
+
 
 void display()
 {
@@ -182,7 +226,7 @@ int main()
             delete_from_end();
             break;
         case 6:
-            // Implement delete_at_any() function
+            delete_at_any();
             break; 
         case 7:
             display();
