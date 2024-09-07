@@ -115,6 +115,34 @@ void delete_from_beg()
     }
 }
 
+void delete_from_end()
+{
+    if (head == NULL)
+    {
+        printf("List does not exist.\n");
+    }
+    else if (head->link == NULL) // Single node case
+    {
+        struct node *ptr = head;
+        head = NULL; // Set head to NULL since this is the only node
+        printf("Deleted Node data: %d\n", ptr->data);
+        free(ptr);
+    }
+    else
+    {
+        struct node *ptr1 = head;
+        while (ptr1->link->link != NULL) // Traverse to the second last node
+        {
+            ptr1 = ptr1->link;
+        }
+        struct node *ptr = ptr1->link; // Last node to be deleted
+        ptr1->link = NULL; // Second last node becomes the last node
+        printf("Deleted Node data: %d\n", ptr->data);
+        free(ptr); // Free the last node
+    }
+}
+
+
 void display()
 {
     struct node *ptr1 = head;
@@ -151,7 +179,7 @@ int main()
             delete_from_beg();
             break; 
         case 5:
-            // Implement delete_at_end() function
+            delete_from_end();
             break;
         case 6:
             // Implement delete_at_any() function
