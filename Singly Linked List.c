@@ -88,7 +88,7 @@ void insert_at_any()
             count++;
         }
         
-        if (ptr1 == NULL)
+        if (ptr1 == NULL && count != pos-1)
         {
             printf("Position does not exist.\n");
         }
