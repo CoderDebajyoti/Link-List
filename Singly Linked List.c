@@ -226,7 +226,7 @@ int main()
             delete_from_end();
             break;
         case 6:
-            delete_at_any();
+            delete_from_any();
             break; 
         case 7:
             display();
