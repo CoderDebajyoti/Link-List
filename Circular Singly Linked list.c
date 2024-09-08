@@ -127,7 +127,7 @@ void delete_from_end()
     {
         printf("List does not exist.\n");
     }
-    else if (head->link == NULL) // Single node case
+    else if (head->link == head) // Single node case
     {
         struct node *ptr = head;
         head = NULL; // Set head to NULL since this is the only node
@@ -155,7 +155,6 @@ void delete_from_any()
         printf("List does not exist.\n");
         return;
     }
-    
     // Take position
     int pos;
     printf("Enter the position: ");
@@ -170,7 +169,7 @@ void delete_from_any()
     struct node *ptr1 = head; // Pointer for traversal
     struct node *ptr = NULL;  // Pointer to the node to be deleted
     int count = 1;
-
+    
     // Traverse to the node just before the position
     while (ptr1 != head && count < pos - 1)
     {
@@ -179,7 +178,7 @@ void delete_from_any()
     }
 
     // Check if the position is valid
-    if (ptr1 == NULL || ptr1->link == NULL)
+    if (ptr1->link == NULL && count != pos-1)
     {
         printf("Position does not exist.\n");
     }
@@ -196,7 +195,7 @@ void delete_from_any()
 void display()
 {
     struct node *ptr1 = head;
-    while (ptr1 != NULL)
+    while (ptr1 != head)
     {
         printf("%d -> ", ptr1->data);
         ptr1 = ptr1->link;
