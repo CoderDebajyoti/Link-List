@@ -31,15 +31,8 @@ void insert_at_beg()
     scanf("%d", &item);
     struct node *ptr = create_node(item); // Create and initialize new node
 
-    if (head == NULL)
-    {
-        head = ptr; // Empty list
-    }
-    else
-    {
-        ptr->link = head; // New node points to old head
-        head = ptr; // Head now points to the new node
-    }
+    ptr->link = head; // New node points to old head
+    head = ptr; // Head now points to the new node
 }
 
 void insert_at_end()
@@ -71,26 +64,36 @@ void insert_at_any()
     scanf("%d", &item);
     printf("Enter the position of new Node: ");
     scanf("%d", &pos);
-    
-    struct node *ptr = create_node(item); // Create and initialize new node
-    struct node *ptr1 = head; // Pointer for traversal
 
+    if (pos <= 0) 
+    {
+        printf("Invalid position. Position should be greater than 0.\n");
+        return;
+    }
+
+    struct node *ptr = create_node(item); // Create and initialize new node
+    
     if (pos == 1)
     {
-        insert_at_beg(); // Insert at beginning if position is 1
+        ptr->link = head;
+        head = ptr; // Insert at the beginning if position is 1
     }
     else
     {
+        struct node *ptr1 = head;
         int count = 1;
+        
+        // Traverse to the node before the desired position
         while (ptr1 != NULL && count < pos - 1)
         {
             ptr1 = ptr1->link;
             count++;
         }
-        
-        if (ptr1 == NULL && count != pos-1)
+
+        if (ptr1 == NULL)
         {
             printf("Position does not exist.\n");
+            free(ptr); // Free the newly created node if position is invalid
         }
         else
         {
@@ -155,6 +158,12 @@ void delete_from_any()
     printf("Enter the position: ");
     scanf("%d", &pos);
 
+    if (pos <= 0)
+    {
+        printf("Invalid position. Position should be greater than 0.\n");
+        return;
+    }
+
     if (pos == 1)
     {
         delete_from_beg(); // Use the delete_from_beg function for the first position
@@ -186,10 +195,14 @@ void delete_from_any()
     }
 }
 
-
 void display()
 {
     struct node *ptr1 = head;
+    if (ptr1 == NULL)
+    {
+        printf("List is empty.\n");
+        return;
+    }
     while (ptr1 != NULL)
     {
         printf("%d -> ", ptr1->data);
